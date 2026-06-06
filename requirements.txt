@@ -2,8 +2,10 @@ streamlit
 torch
 torchvision
 pandas
-numpy
+numpy 
 matplotlib
 scikit-learn
 Pillow
-opencv-python
+opencv-python-headless
+kagglehub
+
