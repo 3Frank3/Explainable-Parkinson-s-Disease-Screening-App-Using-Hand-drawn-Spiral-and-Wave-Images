@@ -1,0 +1,96 @@
+{
+  "model_name": "mobilenetv2",
+  "drawing_type": "all",
+  "image_size": 224,
+  "best_validation_accuracy": 0.8947368421052632,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.6719600767284245,
+      "train_accuracy": 0.6103896103896104,
+      "val_loss": 0.7038919319186294,
+      "val_accuracy": 0.43859649122807015
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.5576216612027322,
+      "train_accuracy": 0.7965367965367965,
+      "val_loss": 0.6699741785986382,
+      "val_accuracy": 0.5789473684210527
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.4801201464293839,
+      "train_accuracy": 0.7965367965367965,
+      "val_loss": 0.5883440218473736,
+      "val_accuracy": 0.6842105263157895
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.400680028643959,
+      "train_accuracy": 0.8398268398268398,
+      "val_loss": 0.5383489675689161,
+      "val_accuracy": 0.7017543859649122
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.34227571007493257,
+      "train_accuracy": 0.8874458874458875,
+      "val_loss": 0.4616655247253284,
+      "val_accuracy": 0.7894736842105263
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.2695781249246556,
+      "train_accuracy": 0.9177489177489178,
+      "val_loss": 0.37276587988200943,
+      "val_accuracy": 0.8245614035087719
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.22848276477871518,
+      "train_accuracy": 0.9393939393939394,
+      "val_loss": 0.33910057628363893,
+      "val_accuracy": 0.8421052631578947
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.15836711705247045,
+      "train_accuracy": 0.9696969696969697,
+      "val_loss": 0.3312455122930962,
+      "val_accuracy": 0.8596491228070176
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.17295597654916509,
+      "train_accuracy": 0.9393939393939394,
+      "val_loss": 0.253270613519769,
+      "val_accuracy": 0.8947368421052632
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.19014790873506884,
+      "train_accuracy": 0.935064935064935,
+      "val_loss": 0.2837561201630977,
+      "val_accuracy": 0.8771929824561403
+    }
+  ],
+  "test_metrics": {
+    "accuracy": 0.8833333333333333,
+    "precision": 0.9259259259259259,
+    "recall": 0.8333333333333334,
+    "f1": 0.8771929824561403,
+    "confusion_matrix": [
+      [
+        56,
+        4
+      ],
+      [
+        10,
+        50
+      ]
+    ],
+    "threshold": 0.5,
+    "roc_auc": 0.9277777777777778
+  }
+}

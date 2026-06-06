@@ -2,7 +2,7 @@ streamlit
 torch
 torchvision
 pandas
-numpy 
+numpy <2
 matplotlib
 scikit-learn
 Pillow
