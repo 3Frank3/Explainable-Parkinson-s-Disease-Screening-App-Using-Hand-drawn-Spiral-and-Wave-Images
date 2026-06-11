@@ -8,6 +8,12 @@ from torch import nn
 
 
 class GradCAM:
+    def disable_inplace_relu(model):
+        for module in model.modules():
+            if isinstance(module, nn.ReLU):
+                module.inplace = False
+        return model
+
     def __init__(self, model: nn.Module, target_layer: nn.Module):
         self.model = model
         self.target_layer = target_layer
@@ -66,6 +72,7 @@ def make_heatmap_overlay(original_image: Image.Image, cam: np.ndarray, alpha: fl
 
 
 def generate_gradcam_overlay(
+    model = disable_inplace_relu(model),
     model: nn.Module,
     target_layer: nn.Module,
     image_tensor: torch.Tensor,
