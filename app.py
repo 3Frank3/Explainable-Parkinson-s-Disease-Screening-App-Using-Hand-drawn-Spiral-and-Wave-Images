@@ -2,17 +2,10 @@ from __future__ import annotations
 
 from pathlib import Path
 
-import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
-from PIL import Image
 import streamlit as st
-import torch
 
 from src.dataset import IDX_TO_CLASS, discover_image_records, find_examples, get_eval_transform, summarize_records
-from src.evaluate import load_metrics
-from src.gradcam import generate_gradcam_overlay
-from src.model import get_gradcam_target_layer, load_model_from_checkpoint
 
 
 PROJECT_TITLE = "Explainable Parkinson's Disease Screening App"
@@ -40,6 +33,8 @@ def load_records(data_dir: str):
 
 @st.cache_resource(show_spinner=False)
 def load_checkpoint(model_path: str):
+    from src.model import load_model_from_checkpoint
+
     return load_model_from_checkpoint(model_path, map_location="cpu")
 
 
@@ -131,6 +126,9 @@ def _metric_value(metrics: dict, key: str):
 
 
 def _plot_confusion_matrix(matrix: list[list[int]], title: str) -> None:
+    import matplotlib.pyplot as plt
+    import numpy as np
+
     fig, ax = plt.subplots(figsize=(4, 3.5))
     matrix_np = np.asarray(matrix)
     image = ax.imshow(matrix_np, cmap="Blues")
@@ -147,6 +145,8 @@ def _plot_confusion_matrix(matrix: list[list[int]], title: str) -> None:
 
 
 def page_model_performance() -> None:
+    from src.evaluate import load_metrics
+
     st.title("Model Performance")
     st.write("The project compares a small baseline CNN against MobileNetV2 transfer learning.")
 
@@ -205,6 +205,8 @@ def available_model_paths() -> list[Path]:
 
 
 def page_prediction_app() -> None:
+    from PIL import Image
+
     st.title("Prediction App")
     caution_box()
 
@@ -231,6 +233,10 @@ def page_prediction_app() -> None:
     st.image(original_image, caption="Uploaded image", width=340)
 
     if st.button("Predict", type="primary"):
+        import torch
+        from src.gradcam import generate_gradcam_overlay
+        from src.model import get_gradcam_target_layer
+
         with st.spinner("Running model inference and Grad-CAM..."):
             model, checkpoint = load_checkpoint(str(selected_model))
             model_name = checkpoint.get("model_name", "mobilenetv2")

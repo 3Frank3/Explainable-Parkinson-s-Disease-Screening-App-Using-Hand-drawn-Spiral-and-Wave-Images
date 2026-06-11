@@ -5,11 +5,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
 
-from PIL import Image
-import torch
-from torch.utils.data import DataLoader, Dataset
-from torchvision import transforms
-
 
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff"}
 DRAWING_TYPES = ("spiral", "wave")
@@ -110,7 +105,7 @@ def discover_image_records(
     return records
 
 
-class ParkinsonDrawingDataset(Dataset):
+class ParkinsonDrawingDataset:
     def __init__(self, records: list[DrawingRecord], transform=None):
         if not records:
             raise ValueError("No drawing records were provided.")
@@ -121,6 +116,9 @@ class ParkinsonDrawingDataset(Dataset):
         return len(self.records)
 
     def __getitem__(self, index: int) -> dict[str, object]:
+        from PIL import Image
+        import torch
+
         record = self.records[index]
         image = Image.open(record.path).convert("RGB")
         if self.transform is not None:
@@ -136,6 +134,8 @@ class ParkinsonDrawingDataset(Dataset):
 
 
 def get_train_transform(image_size: int = 224):
+    from torchvision import transforms
+
     return transforms.Compose(
         [
             transforms.Resize((image_size, image_size)),
@@ -148,6 +148,8 @@ def get_train_transform(image_size: int = 224):
 
 
 def get_eval_transform(image_size: int = 224):
+    from torchvision import transforms
+
     return transforms.Compose(
         [
             transforms.Resize((image_size, image_size)),
@@ -165,7 +167,10 @@ def build_dataloaders(
     val_split: float = 0.2,
     num_workers: int = 0,
     seed: int = 42,
-) -> tuple[DataLoader, DataLoader, DataLoader | None]:
+):
+    import torch
+    from torch.utils.data import DataLoader
+
     train_records = discover_image_records(data_dir, split="train", drawing_type=drawing_type)
     test_records = discover_image_records(data_dir, split="test", drawing_type=drawing_type)
 
